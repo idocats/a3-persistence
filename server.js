@@ -2,7 +2,7 @@ const express   = require("express"),
         dotenv = require('dotenv').config(),
         bodyParser = require("body-parser"),
         mongodb = require( 'mongodb' ),
-        // cookie  = require( 'cookie-session' ),
+        cookie  = require( 'cookie-session' ),
         // favicon = require('serve-favicon'),
         // timeout = require('connect-timeout')
         path = require('path'),
@@ -18,10 +18,10 @@ app.use( express.urlencoded({ extended:true }) )
 // app.use(timeout('5s'))
 // app.use(haltOnTimedout)
 
-// app.use( cookie({
-//     name: 'session',
-//     keys: ['secret', 'keysSsSsSs']
-// }))
+app.use( cookie({
+    name: 'session',
+    keys: ['secret', 'keysSsSsSs']
+}))
 // app.use(haltOnTimedout)
 
 // function haltOnTimedout (req, res, next) {
@@ -29,18 +29,18 @@ app.use( express.urlencoded({ extended:true }) )
 // }
 
 // // add some middleware that always sends unauthenicaetd users to the login page
-// app.use( function( req,res,next) {
-//     if(req.url.includes('.html') || req.url === '/') {
-//         if (req.session.login === true) {
-//             next()
-//         } else {
-//             res.sendFile(__dirname + '/public/index.html')
-//         }
-//     }
-//     else {
-//         next()
-//     }
-// })
+app.use( function( req,res,next) {
+    if(req.url.includes('.html') || req.url === '/') {
+        if (req.session.login === true) {
+            next()
+        } else {
+            res.sendFile(__dirname + '/public/index.html')
+        }
+    }
+    else {
+        next()
+    }
+})
 // app.use(haltOnTimedout)
 
 app.get('/main.html', function(req, res) {
