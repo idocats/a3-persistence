@@ -2,46 +2,46 @@ const express   = require("express"),
         dotenv = require('dotenv').config(),
         bodyParser = require("body-parser"),
         mongodb = require( 'mongodb' ),
-        cookie  = require( 'cookie-session' ),
-        favicon = require('serve-favicon'),
-        timeout = require('connect-timeout')
+        // cookie  = require( 'cookie-session' ),
+        // favicon = require('serve-favicon'),
+        // timeout = require('connect-timeout')
         path = require('path'),
         app     = express();
 
 
 app.use( express.urlencoded({ extended:true }) )
-app.use(haltOnTimedout)
+// app.use(haltOnTimedout)
 
-app.use( favicon(path.join(__dirname, 'public/assets', 'binky.png')) )
-app.use(haltOnTimedout)
+// app.use( favicon(path.join(__dirname, 'public/assets', 'binky.png')) )
+// app.use(haltOnTimedout)
 
-app.use(timeout('5s'))
-app.use(haltOnTimedout)
+// app.use(timeout('5s'))
+// app.use(haltOnTimedout)
 
-app.use( cookie({
-    name: 'session',
-    keys: ['secret', 'keysSsSsSs']
-}))
-app.use(haltOnTimedout)
+// app.use( cookie({
+//     name: 'session',
+//     keys: ['secret', 'keysSsSsSs']
+// }))
+// app.use(haltOnTimedout)
 
-function haltOnTimedout (req, res, next) {
-    if (!req.timedout) next()
-}
+// function haltOnTimedout (req, res, next) {
+//     if (!req.timedout) next()
+// }
 
 // // add some middleware that always sends unauthenicaetd users to the login page
-app.use( function( req,res,next) {
-    if(req.url.includes('.html') || req.url === '/') {
-        if (req.session.login === true) {
-            next()
-        } else {
-            res.sendFile(__dirname + '/public/index.html')
-        }
-    }
-    else {
-        next()
-    }
-})
-app.use(haltOnTimedout)
+// app.use( function( req,res,next) {
+//     if(req.url.includes('.html') || req.url === '/') {
+//         if (req.session.login === true) {
+//             next()
+//         } else {
+//             res.sendFile(__dirname + '/public/index.html')
+//         }
+//     }
+//     else {
+//         next()
+//     }
+// })
+// app.use(haltOnTimedout)
 
 app.get('/main.html', function(req, res) {
     res.sendFile( __dirname+'/public/main.html')
